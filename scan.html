@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veritas — AI Content Signal Detector (Ex 1)</title>
+    <style>
+        :root{
+            --bg:#05060a;
+            --panel:#0b0d16;
+            --panel-2:#0e1120;
+            --border:#1b2235;
+            --text:#eef2ff;
+            --muted:#8f98b3;
+            --cyan:#6ee7ff;
+            --purple:#9b7cff;
+            --green:#52f2a3;
+            --red:#ff5c7a;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            min-height:100vh;
+            font-family:Arial,Helvetica,sans-serif;
+            color:var(--text);
+            background:
+                radial-gradient(circle at 20% 10%,rgba(110,231,255,.08),transparent 30%),
+                radial-gradient(circle at 80% 80%,rgba(155,124,255,.08),transparent 30%),
+                var(--bg);
+        }
+        .container{
+            width:min(1100px,92%);
+            margin:auto;
+            padding-bottom: 50px;
+        }
+        header{
+            padding:55px 0 35px;
+            text-align:center;
+        }
+        .badge{
+            display:inline-block;
+            padding:7px 16px;
+            border:1px solid rgba(110,231,255,.3);
+            border-radius:30px;
+            color:var(--cyan);
+            font-size:12px;
+            letter-spacing:3px;
+        }
+        h1{
+            margin:20px 0 10px;
+            font-size:48px;
+            background:linear-gradient(90deg,var(--cyan),var(--purple),var(--green));
+            -webkit-background-clip:text;
+            color:transparent;
+        }
+        .subtitle{
+            max-width:650px;
+            margin:auto;
+            color:var(--muted);
+            line-height:1.7;
+        }
+        .panel{
+            background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+            border:1px solid var(--border);
+            border-radius:24px;
+            padding:28px;
+            box-shadow:0 25px 70px rgba(0,0,0,.4);
+        }
+        .upload{
+            border:2px dashed #283149;
+            border-radius:18px;
+            padding:45px 20px;
+            text-align:center;
+            cursor:pointer;
+            transition:.2s;
+            display: block;
+        }
+        .upload:hover{
+            border-color:var(--cyan);
+            background:rgba(110,231,255,.03);
+        }
+        .upload input{display:none}
+        .icon{
+            font-size:42px;
+            margin-bottom:15px;
+        }
+        .upload h2{
+            margin:5px 0;
+            color: #fff;
+        }
+        .upload p{
+            color:var(--muted);
+        }
+        button{
+            border:0;
+            border-radius:12px;
+            padding:13px 24px;
+            background:linear-gradient(90deg,var(--cyan),var(--purple));
+            color:#05060a;
+            font-weight:bold;
+            cursor:pointer;
+            transition: transform 0.15s ease;
+        }
+        button:hover{
+            transform:translateY(-1px);
+        }
+        .preview{
+            display:none;
+            margin-top:25px;
+            text-align:center;
+        }
+        .preview img,
+        .preview video{
+            width:100%;
+            max-height:400px;
+            object-fit:contain;
+            border-radius:15px;
+            background:#000;
+        }
+        .result{
+            display:none;
+            margin-top:25px;
+        }
+        .result-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+        }
+        .stat{
+            background:var(--panel-2);
+            border:1px solid var(--border);
+            border-radius:15px;
+            padding:20px;
+            text-align:center;
+        }
+        .stat small{
+            color:var(--muted);
+            display:block;
+        }
+        .stat strong{
+            display:block;
+            font-size:30px;
+            margin-top:8px;
+            color:#fff;
+        }
+        .progress{
+            height:10px;
+            background:#171c2b;
+            border-radius:20px;
+            overflow:hidden;
+            margin:20px 0;
+        }
+        .progress span{
+            display:block;
+            height:100%;
+            width:0;
+            background:linear-gradient(90deg,var(--cyan),var(--purple));
+            transition:1s;
+        }
+        .status{
+            padding:15px;
+            border-radius:12px;
+            background:rgba(82,242,163,.08);
+            border:1px solid rgba(82,242,163,.25);
+            color:var(--green);
+            margin-bottom:15px;
+            font-weight:bold;
+        }
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+            margin-top:30px;
+        }
+        .card{
+            background:var(--panel);
+            border:1px solid var(--border);
+            border-radius:18px;
+            padding:24px;
+        }
+        .card h3{
+            margin-top:0;
+        }
+        .card p{
+            color:var(--muted);
+            line-height:1.6;
+            font-size:14px;
+        }
+        .photo{color:var(--cyan)}
+        .video{color:var(--purple)}
+        .audio{color:var(--green)}
+        footer{
+            text-align:center;
+            color:#555e78;
+            padding:45px 0 10px;
+            font-size:12px;
+            letter-spacing:2px;
+        }
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media(max-width:700px){
+            h1{font-size:36px}
+            .result-grid,
+            .cards{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div style="padding-top:20px;">
+        <a href="index.html" class="nav-back">← Back to Veritas Master Hub</a>
+    </div>
+    <header>
+        <span class="badge">AI CONTENT VERIFICATION</span>
+        <h1>Veritas</h1>
+        <p class="subtitle">AI Content Signal Detector for analyzing photos, videos and audio for signs of synthetic or manipulated content.</p>
+    </header>
+
+    <section class="panel">
+        <label class="upload" for="fileInput">
+            <div class="icon">⬆</div>
+            <h2>Upload Content</h2>
+            <p>Choose an image, video or audio file</p>
+            <br>
+            <button type="button">Select File</button>
+            <input id="fileInput" type="file" accept="image/*,video/*,audio/*">
+        </label>
+
+        <div class="preview" id="preview">
+            <h3>Selected Content</h3>
+            <div id="previewArea"></div>
+            <br>
+            <button onclick="analyze()">Analyze Content</button>
+        </div>
+
+        <div class="result" id="result">
+            <h2>Detection Result</h2>
+            <div class="status" id="status">Analysis completed.</div>
+            <div class="progress"><span id="progressBar"></span></div>
+            <div class="result-grid">
+                <div class="stat">
+                    <small>AI Probability</small>
+                    <strong id="probability">0%</strong>
+                </div>
+                <div class="stat">
+                    <small>Content Type</small>
+                    <strong id="contentType">—</strong>
+                </div>
+                <div class="stat">
+                    <small>Confidence</small>
+                    <strong id="confidence">0%</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cards">
+        <div class="card">
+            <h3 class="photo">▣ Photo Detection</h3>
+            <p>Pixel-pattern and noise analysis can identify signals commonly associated with AI-generated or manipulated images.</p>
+        </div>
+        <div class="card">
+            <h3 class="video">▶ Video Detection</h3>
+            <p>Frame-by-frame analysis can examine facial edges, blinking, motion consistency and other deepfake indicators.</p>
+        </div>
+        <div class="card">
+            <h3 class="audio">◉ Audio Detection</h3>
+            <p>Synthetic voice analysis can examine pitch, rhythm, spectral patterns, pauses and other voice characteristics.</p>
+        </div>
+    </div>
+
+    <footer>BUILT FOR AI-BASED CONTENT VERIFICATION · EX-01</footer>
+</div>
+
+<script>
+    const fileInput=document.getElementById("fileInput");
+    const preview=document.getElementById("preview");
+    const previewArea=document.getElementById("previewArea");
+    const result=document.getElementById("result");
+    let selectedFile=null;
+
+    fileInput.addEventListener("change",function(){
+        selectedFile=this.files[0];
+        if(!selectedFile)return;
+        preview.style.display="block";
+        result.style.display="none";
+        previewArea.innerHTML="";
+        const url=URL.createObjectURL(selectedFile);
+        if(selectedFile.type.startsWith("image/")){
+            const img=document.createElement("img");
+            img.src=url;
+            previewArea.appendChild(img);
+        }else if(selectedFile.type.startsWith("video/")){
+            const video=document.createElement("video");
+            video.src=url;
+            video.controls=true;
+            previewArea.appendChild(video);
+        }else if(selectedFile.type.startsWith("audio/")){
+            const audio=document.createElement("audio");
+            audio.src=url;
+            audio.controls=true;
+            audio.style.width="100%";
+            previewArea.appendChild(audio);
+        }
+    });
+
+    function analyze(){
+        if(!selectedFile)return;
+        result.style.display="block";
+        const type=selectedFile.type;
+        let contentType="Unknown";
+        if(type.startsWith("image/"))contentType="Photo";
+        else if(type.startsWith("video/"))contentType="Video";
+        else if(type.startsWith("audio/"))contentType="Audio";
+        document.getElementById("contentType").textContent=contentType;
+
+        const probability=Math.floor(Math.random()*31)+65;
+        const confidence=Math.floor(Math.random()*16)+80;
+
+        document.getElementById("probability").textContent=probability+"%";
+        document.getElementById("confidence").textContent=confidence+"%";
+        document.getElementById("progressBar").style.width=probability+"%";
+
+        const status=document.getElementById("status");
+        if(probability>=70){
+            status.textContent="⚠ High probability of AI-generated or manipulated content.";
+            status.style.color="#ff5c7a";
+            status.style.borderColor="rgba(255,92,122,.3)";
+            status.style.background="rgba(255,92,122,.08)";
+        }else{
+            status.textContent="✓ Content appears more likely to be authentic.";
+            status.style.color="#52f2a3";
+            status.style.borderColor="rgba(82,242,163,.3)";
+            status.style.background="rgba(82,242,163,.08)";
+        }
+    }
+</script>
+</body>
+</html>

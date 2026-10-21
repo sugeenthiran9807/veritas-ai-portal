@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Signal Profile — Veritas AI</title>
+    <style>
+        :root{--bg:#05060a;--p:#0b0d16;--p2:#0e1120;--b:#1c2033;--t:#f3f5fa;--m:#8890a6;--b1:#5b9dff;--pu:#a78bfa;--g:#6fe3b4;--c:#6ee7ff}
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{background:var(--bg);color:var(--t);font:14px Arial,sans-serif;min-height:100vh}
+        a{color:inherit;text-decoration:none}
+        .rail{position:fixed;left:0;top:0;width:64px;height:100vh;background:var(--p);border-right:1px solid #171a29;display:flex;flex-direction:column;align-items:center;padding:20px 0;gap:14px}
+        .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--pu),var(--g));display:grid;place-items:center;margin-bottom:10px;font-size:18px;}
+        .r{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--m);font-size:16px}
+        .r:hover,.r.on{color:var(--b1);background:rgba(91,157,255,.12);border:1px solid rgba(91,157,255,.35)}
+        .ver{margin-top:auto;font-size:9px;letter-spacing:2px;color:#5c6379;writing-mode:vertical-rl}
+        main{margin-left:64px;padding:40px 60px;}
+        .tag{display:inline-block;padding:4px 10px;background:rgba(155,124,255,.12);color:var(--pu);border:1px solid rgba(155,124,255,.3);border-radius:20px;font-size:11px;font-weight:bold;margin-bottom:12px;}
+        h1{font-size:42px;line-height:1.15;margin-bottom:16px;}
+        p{color:var(--m);font-size:15px;line-height:1.6;max-width:650px;margin-bottom:30px;}
+        .card{background:var(--p);border:1px solid var(--b);border-radius:14px;padding:30px;max-width:700px;margin-bottom:25px;}
+        .check-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #171a29;}
+        .check-item:last-child{border-bottom:none;}
+        .btn{display:inline-block;padding:12px 24px;border-radius:8px;background:linear-gradient(90deg,#4c8dff,#a9d3ff);color:#04101f;font-weight:bold;}
+    </style>
+</head>
+<body>
+    <nav class="rail">
+        <div class="logo">🛡️</div>
+        <a class="r" href="index.html" title="Overview">◎</a>
+        <a class="r" href="scan.html" title="Scanner">▣</a>
+        <a class="r" href="archive.html" title="Archive">☰</a>
+        <a class="r" href="photo.html" title="Photo Signal">◇</a>
+        <a class="r on" href="video.html" title="Video Signal">▶</a>
+        <a class="r" href="audio.html" title="Audio Signal">◐</a>
+        <div class="ver">VERITAS</div>
+    </nav>
+    <main>
+        <span class="tag">CONTENT TYPE · VIDEO FORENSICS</span>
+        <h1>Video signal<br><span style="background:linear-gradient(90deg,var(--pu),var(--b1));-webkit-background-clip:text;color:transparent;">profile.</span></h1>
+        <p>Examines deepfakes or AI-manipulated video clips. Learn what the detector analyzes frame-by-frame before initiating a verification audit.</p>
+        
+        <div class="card">
+            <h3 style="margin-bottom:16px; color:#fff;">Frame-by-frame motion analysis</h3>
+            <p style="font-size:13px; margin-bottom:20px;">Moving images are checked for unnatural blinking patterns, facial boundary shimmer, and temporal flow continuity.</p>
+            
+            <div class="check-item">
+                <span>Blink cadence & biological ocular intervals</span>
+                <span style="color:var(--g)">✓ Monitored</span>
+            </div>
+            <div class="check-item">
+                <span>Facial edges & warping during rotation</span>
+                <span style="color:var(--g)">✓ Monitored</span>
+            </div>
+            <div class="check-item">
+                <span>Frame continuity & optical flow vectors</span>
+                <span style="color:var(--g)">✓ Monitored</span>
+            </div>
+        </div>
+
+        <a class="btn" href="scan.html">Run a demo scan →</a>
+    </main>
+</body>
+</html>

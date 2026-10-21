@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Verification Reports (Ex 7 XML/XSLT)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef5ff;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+        .header-bar {
+            max-width: 1000px;
+            margin: 0 auto 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 24px;
+        }
+        .nav-link {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .toggle-btn-group {
+            max-width: 1000px;
+            margin: 0 auto 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #cbd5e1;
+            color: #334155;
+            transition: 0.2s;
+        }
+        button.active {
+            background: #2c3e50;
+            color: white;
+        }
+        /* Mode 1: XSL Table View */
+        .xsl-view {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .xsl-title-bar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+        .xsl-title-bar h2 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-size: 13px;
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        /* Mode 2: XML + CSS Cards View */
+        .css-view {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .report-card {
+            background-color: white;
+            border: 2px solid #2c3e50;
+            border-radius: 12px;
+            margin: 20px auto;
+            padding: 24px;
+            box-shadow: 0px 4px 10px #999999;
+        }
+        .reportno {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 6px 14px;
+            font-size: 20pt;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .title {
+            display: block;
+            color: #222222;
+            font-size: 17pt;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .category {
+            display: inline-block;
+            color: #1565c0;
+            font-size: 14pt;
+            margin: 6px 0;
+            font-weight: 600;
+        }
+        .score {
+            display: block;
+            color: #1565c0;
+            font-size: 14pt;
+            margin: 6px 0;
+        }
+        .time {
+            display: block;
+            color: #d32f2f;
+            font-size: 15pt;
+            font-weight: bold;
+            margin: 6px 0;
+        }
+        .author {
+            display: block;
+            background-color: #f3f6fa;
+            border-left: 5px solid #2c3e50;
+            padding: 14px;
+            margin-top: 14px;
+            border-radius: 6px;
+        }
+        .authorname {
+            display: block;
+            color: #6a1b9a;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+        .designation {
+            display: block;
+            color: #00897b;
+            font-size: 13pt;
+            margin: 4px 0;
+        }
+        .contact {
+            display: block;
+            color: #795548;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <h1>AI Content Verification Reports (Ex 7)</h1>
+        <a href="index.html" class="nav-link">← Return to Veritas Master Hub</a>
+    </div>
+
+    <div class="toggle-btn-group">
+        <button id="btnXsl" class="active" onclick="setView('xsl')">XSL Stylesheet Table View</button>
+        <button id="btnCss" onclick="setView('css')">XML + CSS Styled Card View</button>
+    </div>
+
+    <!-- Mode 1: XSL View -->
+    <div id="xslContainer" class="xsl-view">
+        <div class="xsl-title-bar">
+            <h2>AI CONTENT AUTHENTICITY &amp; VERIFICATION PORTAL</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Report No</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Verification Score</th>
+                    <th>Time</th>
+                    <th>Auditor</th>
+                </tr>
+            </thead>
+            <tbody id="xslTbody"></tbody>
+        </table>
+    </div>
+
+    <!-- Mode 2: CSS Card View -->
+    <div id="cssContainer" class="css-view">
+        <div id="cardsList"></div>
+    </div>
+
+    <script>
+        const reports = [
+            {
+                reportno: 101,
+                title: "Artificial Intelligence is Transforming Higher Education",
+                category: "Technology",
+                score: "AI Score: 94% (High Probability of AI-Generated Content)",
+                time: "8:30 AM",
+                authorname: "M. Vinith Kumar",
+                designation: "Chief AI Integrity Officer",
+                contact: "vinith@veritasnews.com"
+            },
+            {
+                reportno: 102,
+                title: "New National Education Policy Introduced for College Students",
+                category: "Education",
+                score: "AI Score: 4% (Human-Authored Authentic Article)",
+                time: "9:15 AM",
+                authorname: "S. Kavin Kumar",
+                designation: "Senior Verification Analyst",
+                contact: "kavin@veritasnews.com"
+            },
+            {
+                reportno: 103,
+                title: "India Wins the International Cricket Series Championship",
+                category: "Sports",
+                score: "AI Score: 2% (Verified Human Sports Desk Report)",
+                time: "10:45 AM",
+                authorname: "R. Dinesh",
+                designation: "Media Forensics Analyst",
+                contact: "dinesh@veritasnews.com"
+            },
+            {
+                reportno: 104,
+                title: "New Blockbuster Movie Receives Positive Global Reviews",
+                category: "Entertainment",
+                score: "AI Score: 88% (LLM Synthetic Review Detected)",
+                time: "11:20 AM",
+                authorname: "A. Sneha",
+                designation: "Digital Content Integrity Critic",
+                contact: "sneha@veritasnews.com"
+            },
+            {
+                reportno: 105,
+                title: "Heavy Rain and Thunderstorms Expected in Coastal Regions",
+                category: "Weather",
+                score: "AI Score: 5% (Verified Official Meteorological Alert)",
+                time: "12:00 PM",
+                authorname: "P. Mani",
+                designation: "Automated Dispatch Verification Auditor",
+                contact: "mani@veritasnews.com"
+            }
+        ];
+
+        function render() {
+            const tbody = document.getElementById('xslTbody');
+            tbody.innerHTML = '';
+            reports.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${r.reportno}</td>
+                    <td><b>${r.title}</b></td>
+                    <td>${r.category}</td>
+                    <td>${r.score}</td>
+                    <td>${r.time}</td>
+                    <td>${r.authorname} (${r.designation})</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const cardsList = document.getElementById('cardsList');
+            cardsList.innerHTML = '';
+            reports.forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'report-card';
+                card.innerHTML = `
+                    <div class="reportno">${r.reportno}</div>
+                    <div class="title">${r.title}</div>
+                    <div class="category">${r.category}</div>
+                    <div class="score">${r.score}</div>
+                    <div class="time">${r.time}</div>
+                    <div class="author">
+                        <div class="authorname">${r.authorname}</div>
+                        <div class="designation">${r.designation}</div>
+                        <div class="contact">${r.contact}</div>
+                    </div>
+                `;
+                cardsList.appendChild(card);
+            });
+        }
+
+        function setView(view) {
+            if (view === 'xsl') {
+                document.getElementById('btnXsl').classList.add('active');
+                document.getElementById('btnCss').classList.remove('active');
+                document.getElementById('xslContainer').style.display = 'block';
+                document.getElementById('cssContainer').style.display = 'none';
+            } else {
+                document.getElementById('btnCss').classList.add('active');
+                document.getElementById('btnXsl').classList.remove('active');
+                document.getElementById('xslContainer').style.display = 'none';
+                document.getElementById('cssContainer').style.display = 'block';
+            }
+        }
+
+        window.onload = render;
+    </script>
+</body>
+</html>

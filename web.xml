@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>AIContentVerification</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Ex 5A: AI Content Verification Servlet -->
+    <servlet>
+        <servlet-name>AIContentVerifyServlet</servlet-name>
+        <servlet-class>AIContentVerifyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AIContentVerifyServlet</servlet-name>
+        <url-pattern>/AIContentVerifyServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Ex 5B: Session Tracking Servlet -->
+    <servlet>
+        <servlet-name>SessionTracking</servlet-name>
+        <servlet-class>SessionTracking</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SessionTracking</servlet-name>
+        <url-pattern>/SessionTracking</url-pattern>
+    </servlet-mapping>
+
+    <!-- Ex 6A: Examination Question Servlet -->
+    <servlet>
+        <servlet-name>exam</servlet-name>
+        <servlet-class>exam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>exam</servlet-name>
+        <url-pattern>/exam</url-pattern>
+    </servlet-mapping>
+
+    <!-- Ex 6A: Examination Result Evaluation Servlet -->
+    <servlet>
+        <servlet-name>exam2</servlet-name>
+        <servlet-class>exam2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>exam2</servlet-name>
+        <url-pattern>/exam2</url-pattern>
+    </servlet-mapping>
+
+</web-app>

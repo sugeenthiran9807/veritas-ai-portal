@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Content Detector - Ex 3 DHTML</title>
+<style>
+:root{
+--navy:#090b3d;
+--deep:#12084f;
+--purple:#7c3aed;
+--violet:#a855f7;
+--pink:#ec4899;
+--blue:#2563eb;
+--cyan:#06b6d4;
+--green:#18b76a;
+--orange:#f59e0b;
+--line:#dce3f2;
+--muted:#667085;
+--text:#101828;
+--white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Inter,Segoe UI,Arial,sans-serif;
+min-height:100vh;color:var(--text);
+background:
+radial-gradient(circle at 4% 18%,rgba(236,72,153,.95),transparent 20%),
+radial-gradient(circle at 98% 25%,rgba(6,182,212,.9),transparent 22%),
+radial-gradient(circle at 96% 95%,rgba(245,158,11,.75),transparent 20%),
+radial-gradient(circle at 3% 94%,rgba(37,99,235,.85),transparent 22%),
+linear-gradient(120deg,#090b3d 0%,#16055b 42%,#080b43 100%);
+background-attachment:fixed;
+overflow-x:hidden;
+}
+body:before{
+content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+background:
+linear-gradient(120deg,transparent 45%,rgba(255,255,255,.035) 46%,transparent 47%),
+radial-gradient(circle at 18% 30%,rgba(168,85,247,.25) 0 2px,transparent 3px),
+radial-gradient(circle at 83% 18%,rgba(34,211,238,.22) 0 2px,transparent 3px);
+background-size:auto,80px 80px,110px 110px;
+}
+.header{
+width:100%;padding:26px 6%;
+display:flex;align-items:center;justify-content:space-between;
+color:#fff;background:rgba(7,8,50,.72);
+border-bottom:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(14px);
+}
+.brand{display:flex;align-items:center;gap:18px}
+.logo{
+width:62px;height:62px;border-radius:20px;
+display:grid;place-items:center;color:#fff;font-size:20px;font-weight:900;
+background:linear-gradient(145deg,#ec4899,#7c3aed 52%,#06b6d4);
+border:2px solid rgba(255,255,255,.7);
+box-shadow:0 0 25px rgba(168,85,247,.7),inset 0 0 18px rgba(255,255,255,.15);
+}
+.brand h1{
+font-size:25px;letter-spacing:.3px;
+background:linear-gradient(90deg,#a78bfa,#60a5fa,#f472b6);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.brand span{display:block;margin-top:4px;font-size:12px;color:#cbd5ff}
+.badge{
+color:#dffcff;border:1px solid #26d9bd;border-radius:30px;
+padding:10px 17px;font-size:11px;font-weight:800;
+background:rgba(4,45,65,.5);box-shadow:0 0 18px rgba(34,211,238,.18);
+}
+.hero{
+max-width:1250px;margin:auto;padding:40px 6% 25px;color:#fff;
+}
+.hero h2{
+font-size:40px;letter-spacing:-1.2px;margin-bottom:8px;
+background:linear-gradient(90deg,#fff,#d8b4fe,#60a5fa);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{font-size:14px;color:#d2d8ff;max-width:700px}
+.layout{
+max-width:1250px;margin:auto;padding:0 6% 22px;
+display:grid;grid-template-columns:1.05fr .95fr;gap:20px;
+}
+.card{
+position:relative;background:rgba(255,255,255,.97);
+border:1px solid rgba(255,255,255,.75);border-radius:20px;
+box-shadow:0 22px 50px rgba(0,0,0,.25);padding:25px;overflow:hidden;
+}
+.card:before{
+content:"";position:absolute;left:0;right:0;top:0;height:5px;
+background:linear-gradient(90deg,#ec4899,#7c3aed,#2563eb,#06b6d4);
+}
+.card-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.card-title h3{font-size:17px;color:#243b80}
+.status{
+font-size:10px;color:#047857;background:#ecfdf5;border:1px solid #b7f0d1;
+padding:6px 10px;border-radius:20px;font-weight:800
+}
+label{font-size:13px;font-weight:800;display:block;margin-bottom:9px; color:#333;}
+textarea{
+width:100%;height:265px;resize:none;outline:none;
+border:2px solid #d8c8ff;border-radius:13px;padding:16px;
+font-size:14px;line-height:1.65;color:#172554;
+background:linear-gradient(180deg,#fff,#fbf9ff);
+}
+textarea:focus{
+border-color:#7c3aed;
+box-shadow:0 0 0 4px rgba(124,58,237,.12),0 0 25px rgba(124,58,237,.08);
+}
+.stats{
+display:flex;justify-content:space-between;margin:10px 0 17px;
+background:#f6f7ff;border:1px solid #e4e8ff;border-radius:10px;
+padding:10px 12px;font-size:12px;color:#667085
+}
+.stats b{color:#4f46e5}
+.actions{display:flex;gap:10px}
+button{
+border-radius:11px;padding:13px 18px;font-size:12px;font-weight:900;
+cursor:pointer;transition:.2s
+}
+.primary{
+flex:1;border:0;color:#fff;
+background:linear-gradient(90deg,#c026d3,#7c3aed,#2563eb,#0891b2);
+box-shadow:0 9px 20px rgba(79,70,229,.28)
+}
+.primary:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(79,70,229,.35)}
+.secondary{
+min-width:115px;color:#db2777;background:#fff;
+border:2px solid #f0a5ca
+}
+.secondary:hover{background:#fff1f8}
+.message{min-height:20px;text-align:center;margin-top:10px;font-size:11px;font-weight:700;color:#667085}
+.result-main{
+display:grid;grid-template-columns:165px 1fr;gap:20px;align-items:center;
+padding:8px 0 20px;border-bottom:1px solid #e8ecf4
+}
+.circle{
+width:160px;height:160px;border-radius:50%;display:grid;place-items:center;
+margin:auto;position:relative;
+background:conic-gradient(#a855f7 0 28%,#2563eb 28% 68%,#10b981 68% 100%);
+box-shadow:0 0 28px rgba(37,99,235,.22)
+}
+.circle:after{
+content:"";position:absolute;width:116px;height:116px;border-radius:50%;
+background:#fff;box-shadow:inset 0 0 18px rgba(37,99,235,.06)
+}
+.circle div{position:relative;z-index:1;text-align:center}
+.circle strong{font-size:30px;display:block;color:#111b54}
+.circle span{font-size:10px;font-weight:900;color:#6d28d9}
+.score-row{margin:14px 0}
+.score-head{display:flex;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:7px}
+.bar{height:9px;background:#edf1f7;border-radius:20px;overflow:hidden}
+.fill{height:100%;border-radius:20px}
+.ai{background:linear-gradient(90deg,#7c3aed,#2563eb)} 
+.human{background:linear-gradient(90deg,#10b981,#34d399)}
+.verdict{
+margin-top:17px;padding:16px;border-radius:12px;
+border:1px solid #cbd5ff;background:linear-gradient(135deg,#f5f3ff,#eff6ff)
+}
+.verdict small{font-size:10px;color:#64748b;font-weight:800}
+.verdict strong{display:block;margin-top:5px;font-size:15px;color:#5b21b6}
+.note{
+margin-top:12px;padding:10px 12px;border-left:3px solid #06b6d4;
+background:#ecfeff;color:#475467;font-size:10px;line-height:1.5
+}
+.bottom{
+max-width:1250px;margin:auto;padding:0 6% 28px;
+display:grid;grid-template-columns:repeat(3,1fr);gap:15px
+}
+.info{
+background:rgba(255,255,255,.96);border-radius:14px;padding:18px;
+border:1px solid rgba(255,255,255,.7);box-shadow:0 12px 30px rgba(0,0,0,.17)
+}
+.info:nth-child(1){border-top:4px solid #a855f7}
+.info:nth-child(2){border-top:4px solid #06b6d4}
+.info:nth-child(3){border-top:4px solid #f59e0b}
+.info h4{font-size:12px;color:#243b80;margin-bottom:7px}
+.info p{font-size:10px;line-height:1.55;color:#667085}
+.footer{
+text-align:center;padding:18px;color:#dbe4ff;
+border-top:1px solid rgba(255,255,255,.14);
+background:rgba(5,7,48,.65);font-size:11px
+}
+.nav-link {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+@media(max-width:850px){
+.layout,.bottom{grid-template-columns:1fr}
+.result-main{grid-template-columns:1fr}
+.hero h2{font-size:31px}
+.header{padding:20px 5%}
+.badge{display:none}
+}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="brand">
+<div class="logo">AI</div>
+<div><h1>AI Content Detector</h1><span>Web Technologies Laboratory</span></div>
+</div>
+<div class="badge">EXPERIMENT 03 · DHTML</div>
+</header>
+<section class="hero">
+<a href="index.html" class="nav-link">← Return to Veritas Master Hub</a>
+<h2>Content Intelligence Analysis</h2>
+<p>Analyze text with a clean client-side interface and receive an estimated AI-content score.</p>
+</section>
+<main class="layout">
+<section class="card">
+<div class="card-title">
+<h3>Content Input</h3><span class="status">LOCAL ANALYSIS</span>
+</div>
+<label for="content">Paste or type your content</label>
+<textarea id="content" placeholder="Enter at least 50 characters of text for analysis..."></textarea>
+<div class="stats">
+<span>Words: <b id="words">0</b></span>
+<span>Characters: <b id="chars">0</b></span>
+</div>
+<div class="actions">
+<button class="primary" onclick="detect()">RUN CONTENT ANALYSIS</button>
+<button class="secondary" onclick="clearAll()">CLEAR</button>
+</div>
+<div class="message" id="message"></div>
+</section>
+<section class="card">
+<div class="card-title">
+<h3>Detection Overview</h3><span class="status" id="resultStatus">READY</span>
+</div>
+<div class="result-main">
+<div class="circle" id="circle"><div><strong id="ai">68%</strong><span>AI CONTENT</span></div></div>
+<div>
+<div class="score-row">
+<div class="score-head"><span>AI Generated</span><span id="aiText">68%</span></div>
+<div class="bar"><div class="fill ai" id="aiBar" style="width:68%"></div></div>
+</div>
+<div class="score-row">
+<div class="score-head"><span>Human Written</span><span id="humanText">32%</span></div>
+<div class="bar"><div class="fill human" id="humanBar" style="width:32%"></div></div>
+</div>
+</div>
+</div>
+<div class="verdict">
+<small>FINAL CLASSIFICATION</small>
+<strong id="verdict">LIKELY AI-GENERATED CONTENT</strong>
+</div>
+<div class="note">This laboratory demonstration uses client-side JavaScript heuristics. It is an estimate and should not be treated as definitive proof of authorship.</div>
+</section>
+</main>
+<section class="bottom">
+<div class="info"><h4>01 · Input Validation</h4><p>The application checks for empty input and requires sufficient text before analysis.</p></div>
+<div class="info"><h4>02 · Text Analysis</h4><p>JavaScript evaluates simple text patterns such as sentence length, repetition and structural signals.</p></div>
+<div class="info"><h4>03 · Result Display</h4><p>The estimated AI and human percentages are presented instantly without sending the text to a server.</p></div>
+</section>
+<footer class="footer">AI Content Detector · CCS375 Web Technologies Laboratory · Experiment 3</footer>
+<script>
+const content=document.getElementById("content");
+content.addEventListener("input",()=>{
+const t=content.value.trim();
+document.getElementById("chars").textContent=t.length;
+document.getElementById("words").textContent=t?t.split(/\s+/).length:0;
+});
+function detect(){
+const text=content.value.trim();
+const msg=document.getElementById("message");
+if(!text){msg.textContent="Validation: please enter content before analysis.";return;}
+if(text.length<50){msg.textContent="Validation: please enter at least 50 characters.";return;}
+const words=text.split(/\s+/).filter(Boolean);
+const sentences=text.split(/[.!?]+/).filter(s=>s.trim());
+const avg=words.length/Math.max(sentences.length,1);
+const freq={};
+words.forEach(w=>{
+const x=w.toLowerCase().replace(/[^a-z0-9]/g,"");
+if(x.length>3)freq[x]=(freq[x]||0)+1;
+});
+let repeated=Object.values(freq).filter(v=>v>=3).length;
+let score=50;
+if(avg>22)score+=10;
+if(avg<10)score-=8;
+if(repeated>3)score+=8;
+if(words.length>250)score+=5;
+if(/furthermore|moreover|in conclusion/i.test(text))score+=5;
+score=Math.max(0,Math.min(100,score));
+const human=100-score;
+document.getElementById("ai").textContent=score+"%";
+document.getElementById("aiText").textContent=score+"%";
+document.getElementById("humanText").textContent=human+"%";
+document.getElementById("aiBar").style.width=score+"%";
+document.getElementById("humanBar").style.width=human+"%";
+document.getElementById("circle").style.background=
+`conic-gradient(#a855f7 0 ${Math.max(0,score-40)}%,#2563eb ${Math.max(0,score-40)}% ${score}%,#10b981 ${score}% 100%)`;
+let verdict=score>=70?"LIKELY AI-GENERATED CONTENT":
+score>=40?"MIXED / UNCERTAIN CONTENT":"LIKELY HUMAN-WRITTEN CONTENT";
+document.getElementById("verdict").textContent=verdict;
+document.getElementById("resultStatus").textContent="ANALYSIS COMPLETE";
+msg.textContent="Analysis completed successfully.";
+}
+function clearAll(){
+content.value="";
+document.getElementById("words").textContent="0";
+document.getElementById("chars").textContent="0";
+document.getElementById("message").textContent="";
+document.getElementById("ai").textContent="68%";
+document.getElementById("aiText").textContent="68%";
+document.getElementById("humanText").textContent="32%";
+document.getElementById("aiBar").style.width="68%";
+document.getElementById("humanBar").style.width="32%";
+document.getElementById("circle").style.background="conic-gradient(#7c3aed 0 28%,#2563eb 28% 68%,#10b981 68% 100%)";
+document.getElementById("verdict").textContent="LIKELY AI-GENERATED CONTENT";
+document.getElementById("resultStatus").textContent="READY";
+}
+</script>
+</body>
+</html>

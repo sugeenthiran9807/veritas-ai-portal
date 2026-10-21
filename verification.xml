@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="verification.css"?>
+<!DOCTYPE verification SYSTEM "verification.dtd">
+<verification>
+    <report>
+        <reportno>101</reportno>
+        <title>Artificial Intelligence is Transforming Higher Education</title>
+        <category>Technology</category>
+        <score>AI Score: 94% (High Probability of AI-Generated Content)</score>
+        <time>8:30 AM</time>
+        <author>
+            <authorname>M. Vinith Kumar</authorname>
+            <designation>Chief AI Integrity Officer</designation>
+            <contact>vinith@veritasnews.com</contact>
+        </author>
+    </report>
+    <report>
+        <reportno>102</reportno>
+        <title>New National Education Policy Introduced for College Students</title>
+        <category>Education</category>
+        <score>AI Score: 4% (Human-Authored Authentic Article)</score>
+        <time>9:15 AM</time>
+        <author>
+            <authorname>S. Kavin Kumar</authorname>
+            <designation>Senior Verification Analyst</designation>
+            <contact>kavin@veritasnews.com</contact>
+        </author>
+    </report>
+    <report>
+        <reportno>103</reportno>
+        <title>India Wins the International Cricket Series Championship</title>
+        <category>Sports</category>
+        <score>AI Score: 2% (Verified Human Sports Desk Report)</score>
+        <time>10:45 AM</time>
+        <author>
+            <authorname>R. Dinesh</authorname>
+            <designation>Media Forensics Analyst</designation>
+            <contact>dinesh@veritasnews.com</contact>
+        </author>
+    </report>
+    <report>
+        <reportno>104</reportno>
+        <title>New Blockbuster Movie Receives Positive Global Reviews</title>
+        <category>Entertainment</category>
+        <score>AI Score: 88% (LLM Synthetic Review Detected)</score>
+        <time>11:20 AM</time>
+        <author>
+            <authorname>A. Sneha</authorname>
+            <designation>Digital Content Integrity Critic</designation>
+            <contact>sneha@veritasnews.com</contact>
+        </author>
+    </report>
+    <report>
+        <reportno>105</reportno>
+        <title>Heavy Rain and Thunderstorms Expected in Coastal Regions</title>
+        <category>Weather</category>
+        <score>AI Score: 5% (Verified Official Meteorological Alert)</score>
+        <time>12:00 PM</time>
+        <author>
+            <authorname>P. Mani</authorname>
+            <designation>Automated Dispatch Verification Auditor</designation>
+            <contact>mani@veritasnews.com</contact>
+        </author>
+    </report>
+</verification>

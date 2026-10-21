@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Verification Examination (Ex 6A)</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #1565c0;
+            --bg: #eef5ff;
+            --white: #ffffff;
+            --green: #059669;
+            --red: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 35px 40px;
+            border-radius: 16px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Screen 1: Registration Form */
+        #screenRegister {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+        }
+
+        .btn-action {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #1a252f;
+        }
+
+        /* Screen 2: Examination Questions */
+        #screenExam {
+            display: none;
+        }
+
+        .student-header {
+            background: #f8fafc;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .question-box {
+            background-color: #f3f6fa;
+            padding: 20px;
+            margin: 18px 0;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            margin: 6px 0;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input[type="radio"] {
+            margin-top: 3px;
+        }
+
+        /* Screen 3: Examination Result (Matching Page 25) */
+        #screenResult {
+            display: none;
+            text-align: center;
+        }
+
+        .result-card {
+            border: 2px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+            margin-top: 15px;
+        }
+
+        .result-kpi-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 320px;
+        }
+
+        .result-score {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1e40af;
+            margin: 6px 0;
+        }
+
+        .verdict-banner {
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .verdict-banner.pass {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .verdict-banner.fail {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SCREEN 1: LOGIN / CANDIDATE REGISTRATION -->
+        <div id="screenRegister">
+            <h1>AI Content Verification</h1>
+            <h2>Authenticity &amp; Synthetic Text Detection</h2>
+            <p>Welcome to the AI Content Verification &amp; Authenticity Portal</p>
+            <p style="margin-bottom: 25px;">Please enter your details to start the assessment.</p>
+
+            <form onsubmit="startExam(event)">
+                <input type="text" id="candName" class="form-input" placeholder="Enter Your Name (e.g. Riya Sharma)" value="Riya Sharma" required>
+                <input type="text" id="candRegNo" class="form-input" placeholder="Enter Register Number (e.g. 9087654321)" value="9087654321" required>
+                <button type="submit" class="btn-action">Start Examination</button>
+            </form>
+        </div>
+
+        <!-- SCREEN 2: ASSESSMENT QUESTIONS -->
+        <div id="screenExam">
+            <h1>AI Content Verification Assessment</h1>
+            <div class="student-header">
+                <div>Candidate: <strong id="dispName" style="color:var(--accent);"></strong></div>
+                <div>Register Number: <strong id="dispRegNo" style="color:var(--primary);"></strong></div>
+            </div>
+            <p>Select the most accurate forensic indicator for each criterion:</p>
+            <hr style="margin: 15px 0 25px; border: 0; border-top: 1px solid #e2e8f0;">
+
+            <form id="quizForm" onsubmit="submitExam(event)">
+                <!-- Question 1 -->
+                <div class="question-box">
+                    <span class="question-title">1. How does the text score on Linguistic Perplexity and Burstiness variation?</span>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="1" required checked>
+                        <span>High syntactic variance and burstiness indicative of authentic human writing</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="0">
+                        <span>Uniform sentence lengths and predictable low-perplexity syntax characteristic of LLMs</span>
+                    </label>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-box">
+                    <span class="question-title">2. What is observed regarding repetitive formulaic transition templates?</span>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="1" required checked>
+                        <span>Natural lexical diversity without clichéd AI filler phrases</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="0">
+                        <span>Heavy reliance on repetitive transitions like "delve into", "in conclusion", and "tapestry"</span>
+                    </label>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-box">
+                    <span class="question-title">3. What does cross-referencing against primary factual databases reveal?</span>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="1" required checked>
+                        <span>Fully accurate citations and verified external real-world references</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="0">
+                        <span>Hallucinated citations, non-existent authors, or fabricated statistical data</span>
+                    </label>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-box">
+                    <span class="question-title">4. What is the statistical token probability distribution (N-Gram entropy)?</span>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="1" required checked>
+                        <span>Elevated token entropy featuring contextual colloquialisms and creative nuance</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="0">
+                        <span>Monotonously high probability tokens conforming strictly to greedy decoding</span>
+                    </label>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-box">
+                    <span class="question-title">5. Does cryptographic digital provenance or synthetic watermarking confirm authenticity?</span>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="1" required checked>
+                        <span>Verified human authoring keystroke timeline with authentic digital provenance</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="0">
+                        <span>Detectable synthetic token watermark patterns or zero human revision delta</span>
+                    </label>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit" class="btn-action" style="padding: 14px 40px;">Submit Examination Audit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- SCREEN 3: RESULT REPORT CARD -->
+        <div id="screenResult">
+            <h1>AI Content Verification Result</h1>
+            <h2 id="resStudentTitle">Auditor Name: Riya Sharma</h2>
+            <p>Register Number: <strong id="resRegNo">9087654321</strong></p>
+            <p style="font-size:12px; color:#64748b; margin-top:2px;">Verified Document: Neural Language Models &amp; Academic Authenticity</p>
+
+            <div class="result-card">
+                <div class="result-kpi-box">
+                    <div style="font-size:12px; font-weight:bold; color:#475569; letter-spacing:1px;">AUTHENTICITY SCORE</div>
+                    <div class="result-score" id="resScore">5 / 5</div>
+                    <div style="font-size:12px; color:#1e40af; font-weight:600;" id="resProbBreakdown">Human Probability: 100% | AI Probability: 0%</div>
+                </div>
+
+                <div class="verdict-banner pass" id="resBanner">
+                    ✓ Congratulations! Verified Authentic Human Content
+                </div>
+
+                <p id="resDescription" style="max-width: 500px; margin: 0 auto; color:#475569; font-size: 13px;">
+                    The submitted document demonstrates authentic human perplexity variance, zero synthetic watermark patterns, and verified factual consistency.
+                </p>
+
+                <div style="margin-top: 25px;">
+                    <button class="btn-action" onclick="resetExam()">Take Another Assessment</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">← Master Veritas Portal</a>
+            <a href="marklist.html">Student Marklist (Ex 6B)</a>
+            <a href="audit.html">Servlet Audit (Ex 5A)</a>
+            <a href="session.html">Session Tracker (Ex 5B)</a>
+        </div>
+    </div>
+
+    <script>
+        let candidateName = '';
+        let candidateRegNo = '';
+
+        function startExam(e) {
+            e.preventDefault();
+            candidateName = document.getElementById('candName').value.trim();
+            candidateRegNo = document.getElementById('candRegNo').value.trim();
+
+            document.getElementById('dispName').textContent = candidateName;
+            document.getElementById('dispRegNo').textContent = candidateRegNo;
+
+            document.getElementById('screenRegister').style.display = 'none';
+            document.getElementById('screenExam').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitExam(e) {
+            e.preventDefault();
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const data = new FormData(form);
+
+            for (let i = 1; i <= 5; i++) {
+                if (data.get(`q${i}`) === '1') {
+                    score++;
+                }
+            }
+
+            document.getElementById('resStudentTitle').textContent = `Auditor Name: ${candidateName}`;
+            document.getElementById('resRegNo').textContent = candidateRegNo;
+            document.getElementById('resScore').textContent = `${score} / 5`;
+
+            const humanPct = Math.round((score / 5) * 100);
+            const aiPct = 100 - humanPct;
+            document.getElementById('resProbBreakdown').textContent = `Human Probability: ${humanPct}% | AI Probability: ${aiPct}%`;
+
+            const banner = document.getElementById('resBanner');
+            const desc = document.getElementById('resDescription');
+
+            if (score >= 3) {
+                banner.className = 'verdict-banner pass';
+                banner.textContent = '✓ Congratulations! Verified Authentic Human Content';
+                desc.textContent = 'The candidate successfully passed the AI Content Verification Examination. High accuracy in distinguishing neural synthetic text from authentic human authoring.';
+            } else {
+                banner.className = 'verdict-banner fail';
+                banner.textContent = '✗ Sorry! Examination Assessment Failed';
+                desc.textContent = 'The candidate failed to reach the required 60% threshold for AI Content Authenticity Certification. Please review forensic heuristics and retake the test.';
+            }
+
+            document.getElementById('screenExam').style.display = 'none';
+            document.getElementById('screenResult').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetExam() {
+            document.getElementById('screenResult').style.display = 'none';
+            document.getElementById('screenRegister').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Check if query params were passed from index.jsp or external GET
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const nameParam = params.get('name');
+            const regnoParam = params.get('regno');
+            if (nameParam && regnoParam) {
+                document.getElementById('candName').value = nameParam;
+                document.getElementById('candRegNo').value = regnoParam;
+                candidateName = nameParam;
+                candidateRegNo = regnoParam;
+                document.getElementById('dispName').textContent = candidateName;
+                document.getElementById('dispRegNo').textContent = candidateRegNo;
+                document.getElementById('screenRegister').style.display = 'none';
+                document.getElementById('screenExam').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

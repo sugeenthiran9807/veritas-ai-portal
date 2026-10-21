@@ -1,0 +1,11 @@
+<!ELEMENT verification (report+)>
+<!ELEMENT report (reportno,title,category,score,time,author)>
+<!ELEMENT reportno (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT category (#PCDATA)>
+<!ELEMENT score (#PCDATA)>
+<!ELEMENT time (#PCDATA)>
+<!ELEMENT author (authorname,designation,contact)>
+<!ELEMENT authorname (#PCDATA)>
+<!ELEMENT designation (#PCDATA)>
+<!ELEMENT contact (#PCDATA)>
