@@ -57,10 +57,22 @@ veritas_ai_portal/
 
 ## 🚀 How to Run the Website
 
-### Option 1: Instant Client-Side Launch (Zero Dependencies)
+### Option 1: Live Public Deployment on GitHub Pages (Access on Any Device)
+Host on GitHub Pages to access the portal anywhere in the world on mobile, tablet, or desktop:
+1. Create a public repository on GitHub (e.g., `veritas-ai-portal`).
+2. Push this directory to GitHub:
+   ```powershell
+   git remote add origin https://github.com/<YOUR_USERNAME>/veritas-ai-portal.git
+   git push -u origin main
+   ```
+3. In GitHub, go to **Settings** > **Pages** > Select branch `main` / `root` > **Save**.
+4. Access globally on all devices at:
+   `https://<YOUR_USERNAME>.github.io/veritas-ai-portal/`
+
+### Option 2: Instant Client-Side Launch (Zero Dependencies)
 Double-click `index.html` in Windows Explorer or open it in any modern browser (Chrome, Edge, Firefox, Opera, Brave). All modules, local databases, forensic scanners, and interactive features run 100% offline via modern Web APIs!
 
-### Option 2: Run with Python Server (Port 8080)
+### Option 3: Run with Python Server (Port 8080)
 To run on the standard Apache Tomcat port (`8080`):
 ```powershell
 python server.py
@@ -71,7 +83,7 @@ http://localhost:8080
 ```
 This emulates Jakarta Servlets (`/AIContentVerifyServlet`, `/SessionTracking`, `/marklist.jsp`) and serves all static assets.
 
-### Option 3: Deploy to Apache Tomcat 10
+### Option 4: Deploy to Apache Tomcat 10
 1. Copy the `veritas_ai_portal` directory into your Tomcat installation directory:
    ```
    C:\Program Files\Apache Software Foundation\Tomcat 10.1\webapps\AIContentVerification\
