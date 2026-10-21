@@ -216,6 +216,45 @@
         .nav-links a:hover {
             text-decoration: underline;
         }
+
+        /* Mobile & Tablet Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 16px;
+                border-radius: 12px;
+            }
+            .student-header {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .form-input {
+                font-size: 16px; /* iOS Safari auto-zoom prevention */
+            }
+            .option-label {
+                padding: 12px;
+                font-size: 14px;
+            }
+            h1 {
+                font-size: clamp(20px, 6vw, 24px);
+            }
+            h2 {
+                font-size: clamp(15px, 4.5vw, 18px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn-action {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>

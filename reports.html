@@ -164,6 +164,50 @@
             color: #795548;
             font-size: 12pt;
         }
+
+        /* Mobile & Tablet Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+            .header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-bar h1 {
+                font-size: 20px;
+            }
+            .toggle-btn-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .toggle-btn-group button {
+                width: 100%;
+            }
+            .xsl-view {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .xsl-title-bar h2 {
+                font-size: 16px;
+            }
+            table {
+                min-width: 600px;
+            }
+            .report-card {
+                padding: 16px;
+            }
+            .reportno {
+                font-size: 14pt;
+            }
+            .title {
+                font-size: 14pt;
+            }
+            .category, .score, .time, .authorname {
+                font-size: 12pt;
+            }
+        }
     </style>
 </head>
 <body>

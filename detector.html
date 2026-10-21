@@ -191,9 +191,12 @@ background:rgba(5,7,48,.65);font-size:11px
 @media(max-width:850px){
 .layout,.bottom{grid-template-columns:1fr}
 .result-main{grid-template-columns:1fr}
-.hero h2{font-size:31px}
-.header{padding:20px 5%}
+.hero h2{font-size:clamp(24px, 7vw, 31px)}
+.header{padding:16px 4%}
 .badge{display:none}
+textarea{font-size:16px !important}
+.actions{flex-direction:column}
+.actions button{width:100%}
 }
 </style>
 </head>

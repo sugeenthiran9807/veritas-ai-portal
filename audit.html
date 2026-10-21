@@ -251,6 +251,47 @@
         .nav-links a:hover {
             text-decoration: underline;
         }
+
+        /* Mobile & Tablet Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+            .container {
+                padding: 24px 16px;
+                border-radius: 12px;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .radio-group {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            input[type="text"], input[type="email"], select, textarea {
+                font-size: 16px; /* iOS Safari auto-zoom prevention */
+            }
+            .cert-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>

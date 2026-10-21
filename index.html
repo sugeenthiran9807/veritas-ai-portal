@@ -1512,7 +1512,7 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Responsive Layout Tweaks */
+        /* Responsive Layout Tweaks (Laptops, Tablets, and Mobile Phones) */
         @media (max-width: 1024px) {
             .scanner-grid, .detector-layout, .hero-banner {
                 grid-template-columns: 1fr;
@@ -1528,14 +1528,75 @@
         }
 
         @media (max-width: 768px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            /* Convert desktop sidebar to mobile bottom tab bar */
             .sidebar-rail {
-                width: 60px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                width: 100%;
+                height: 64px;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0 6px;
+                border-right: none;
+                border-top: 1px solid var(--border);
+                background: rgba(11, 13, 22, 0.96);
+                backdrop-filter: blur(16px);
+                z-index: 1000;
+                overflow-x: auto;
+                box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.6);
+            }
+            .sidebar-logo, .sidebar-bottom, .code-tag, .tooltip {
+                display: none !important;
+            }
+            .nav-items {
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-around;
+                gap: 2px;
+            }
+            .nav-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                border-radius: 10px;
+            }
+            .main-content {
+                height: auto;
+                min-height: 100vh;
+                padding-bottom: 80px; /* Space for bottom bar */
+                overflow-x: hidden;
             }
             .top-navbar {
-                padding: 14px 20px;
+                padding: 12px 18px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .brand-title h1 {
+                font-size: 19px;
             }
             .content-body {
-                padding: 20px;
+                padding: 18px 14px;
+            }
+            .hero-banner {
+                padding: 24px 0 20px;
+            }
+            .hero-banner h2 {
+                font-size: clamp(24px, 7vw, 34px);
+            }
+            .hero-actions {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .hero-actions .btn {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 140px;
             }
             .stats-ribbon {
                 grid-template-columns: 1fr;
@@ -1545,6 +1606,103 @@
             }
             .conic-gauge-wrap {
                 flex-direction: column;
+                align-items: center;
+            }
+            /* Responsive Interactive Signal Map for Phones */
+            .map-frame {
+                height: 380px;
+            }
+            .node-core {
+                width: 100px;
+                height: 100px;
+                left: calc(50% - 50px);
+                top: calc(50% - 50px);
+            }
+            .node-core strong { font-size: 11px; }
+            .node-core small { font-size: 8px; }
+            .node-photo {
+                width: 86px;
+                height: 86px;
+                top: 20px;
+                right: 20px;
+            }
+            .node-video {
+                width: 86px;
+                height: 86px;
+                bottom: 45px;
+                left: 20px;
+            }
+            .node-audio {
+                width: 86px;
+                height: 86px;
+                bottom: 45px;
+                right: 20px;
+            }
+            .node-photo strong, .node-video strong, .node-audio strong { font-size: 11px; }
+            .node-photo small, .node-video small, .node-audio small { font-size: 7px; }
+            .map-legend {
+                bottom: 10px;
+                left: 10px;
+                font-size: 9px;
+                gap: 8px;
+                padding: 5px 10px;
+            }
+            /* Audit Certificate Responsive */
+            .cert-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .cert-kpis-row {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            .cert-kpi-card .value {
+                font-size: 18px;
+            }
+            .radio-options-row {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            /* Inputs: 16px font-size to prevent mobile browser auto-zoom */
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            /* Table responsiveness */
+            .archive-table, .session-table, table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .xml-report-card {
+                width: 100%;
+                padding: 16px;
+            }
+            .xml-reportno {
+                font-size: 14pt;
+            }
+            .xml-title {
+                font-size: 14pt;
+            }
+            .xml-score, .xml-category, .xml-time, .xml-authorname {
+                font-size: 12pt;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cert-kpis-row {
+                grid-template-columns: 1fr !important;
+            }
+            .hero-actions .btn {
+                flex: 1 1 100%;
+                width: 100%;
+            }
+            .search-reg-box {
+                flex-direction: column;
+            }
+            .search-reg-box .btn {
+                width: 100%;
+            }
+            .top-navbar .session-pill {
+                display: none;
             }
         }
     </style>
