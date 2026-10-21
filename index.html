@@ -10,29 +10,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05060a;
-            --panel: #0b0d16;
-            --panel-2: #0e1120;
-            --panel-3: #141829;
-            --border: #1b2235;
-            --border-hover: #2e3856;
-            --text: #eef2ff;
-            --muted: #8f98b3;
-            --muted-dark: #5c6379;
-            --cyan: #6ee7ff;
-            --cyan-glow: rgba(110, 231, 255, 0.25);
-            --purple: #9b7cff;
-            --purple-glow: rgba(155, 124, 255, 0.25);
-            --blue: #4c8dff;
-            --blue-glow: rgba(76, 141, 255, 0.25);
-            --green: #52f2a3;
-            --green-glow: rgba(82, 242, 163, 0.25);
-            --red: #ff5c7a;
-            --red-glow: rgba(255, 92, 122, 0.25);
+            --bg: #070913;
+            --panel: rgba(14, 18, 36, 0.90);
+            --panel-2: rgba(20, 27, 54, 0.85);
+            --panel-3: rgba(28, 38, 72, 0.75);
+            --border: rgba(99, 102, 241, 0.20);
+            --border-hover: rgba(244, 63, 94, 0.45);
+            --text: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --muted: #94a3b8;
+            --muted-dark: #64748b;
+            --cyan: #22d3ee;
+            --cyan-glow: rgba(34, 211, 238, 0.35);
+            --purple: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.35);
+            --blue: #6366f1;
+            --blue-glow: rgba(99, 102, 241, 0.35);
+            --green: #10b981;
+            --green-glow: rgba(16, 185, 129, 0.35);
+            --red: #f43f5e;
+            --red-glow: rgba(244, 63, 94, 0.35);
             --yellow: #f59e0b;
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
+            --rose: #fb7185;
+            --rose-glow: rgba(251, 113, 133, 0.35);
+            --amber: #f59e0b;
+            --warm-gradient: linear-gradient(135deg, #f43f5e 0%, #ec4899 45%, #8b5cf6 100%);
+            --cyber-gradient: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+            --emerald-gradient: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
@@ -59,12 +67,12 @@
             inset: 0;
             pointer-events: none;
             background: 
-                radial-gradient(circle at 15% 15%, rgba(110, 231, 255, 0.07) 0%, transparent 40%),
-                radial-gradient(circle at 85% 20%, rgba(155, 124, 255, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 50% 85%, rgba(76, 141, 255, 0.06) 0%, transparent 50%),
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+                radial-gradient(circle at 10% 12%, rgba(244, 63, 94, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(99, 102, 241, 0.16) 0%, transparent 50%),
+                radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.10) 0%, transparent 55%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
             z-index: 0;
         }
 
@@ -2284,6 +2292,220 @@
                 align-items: flex-start;
             }
         }
+
+        /* Real-Time Images & Visual Forensics Showcase */
+        .realtime-asset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .realtime-asset-card {
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .realtime-asset-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(34, 211, 238, 0.25);
+        }
+        .asset-card-thumb-wrap {
+            position: relative;
+            width: 100%;
+            height: 95px;
+            overflow: hidden;
+            background: #000;
+        }
+        .asset-card-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+        .realtime-asset-card:hover .asset-card-thumb {
+            transform: scale(1.08);
+        }
+        .asset-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.3px;
+        }
+        .asset-badge.red {
+            background: rgba(244, 63, 94, 0.92);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+        }
+        .asset-badge.green {
+            background: rgba(16, 185, 129, 0.92);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+        }
+        .asset-card-meta {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .asset-card-meta strong {
+            font-size: 12px;
+            color: #fff;
+        }
+        .asset-card-meta span {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        /* Forensic Hero Widget with Real Image */
+        .forensic-hero-widget {
+            padding: 0 !important;
+            overflow: hidden;
+            border: 1px solid rgba(251, 113, 133, 0.35) !important;
+            background: var(--panel) !important;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(251, 113, 133, 0.15) !important;
+        }
+        .forensic-widget-media {
+            position: relative;
+            height: 135px;
+            width: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+        .forensic-widget-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.15);
+        }
+        .laser-scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            box-shadow: 0 0 14px var(--cyan);
+            animation: laserScan 2.6s infinite ease-in-out;
+        }
+        @keyframes laserScan {
+            0% { top: 0%; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .widget-live-pill {
+            position: absolute;
+            bottom: 8px;
+            left: 10px;
+            background: rgba(10, 14, 28, 0.88);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: var(--green);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+        }
+        .live-dot-pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: pulseDot 1.5s infinite;
+        }
+        @keyframes pulseDot {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .forensic-widget-content {
+            padding: 16px 20px;
+        }
+
+        /* Modal Feature Images */
+        .modal-feature-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Table Thumbnail */
+        .table-thumb {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Story Avatar Image */
+        .story-avatar-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* XML Cards with Topic Images */
+        .xml-report-card {
+            border-top: none !important;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .xml-card-img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .xml-table-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 900px) {
+            .realtime-asset-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .realtime-asset-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
 </style>
 </head>
 <body>
@@ -2416,10 +2638,23 @@
                             </div>
                         </div>
 
-                        <div class="hero-widget" style="border-top:3px solid var(--rose);">
-                            <div class="widget-label">HUMAN INTEGRITY DISPATCH</div>
-                            <h4 style="color:#fff; margin-top:6px; font-size:15px;">Why Authenticity Matters</h4>
-                            <p>Real human speech breathes with irregular pauses. Real writing has organic rhythm. Veritas protects genuine creative expression against synthetic noise.</p>
+                        <div class="hero-widget forensic-hero-widget">
+                            <div class="forensic-widget-media">
+                                <img src="assets/forensic_hero.jpg" alt="Neural Forensics Visualizer" class="forensic-widget-img">
+                                <div class="laser-scanner-line"></div>
+                                <div class="widget-live-pill">
+                                    <span class="live-dot-pulse"></span> LIVE SENSOR RADAR
+                                </div>
+                            </div>
+                            <div class="forensic-widget-content">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <h4 style="color:#fff; font-size:15px; font-weight:700;">Multimodal Forensic Radar</h4>
+                                    <span class="tag-pill cyan">ZERO-LATENCY</span>
+                                </div>
+                                <p style="font-size:12px; color:var(--muted); margin-top:5px; line-height:1.4;">
+                                    Decomposing PRNU pixel sensor noise, facial optical flow vectors, and Mel-spectrogram voice harmonics.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -2597,7 +2832,7 @@
                                 <div class="story-card">
                                     <div class="story-quote">"When a generic scanner flagged my original master's thesis chapter, Veritas showed the natural sentence burstiness that proved my human authorship."</div>
                                     <div class="story-author">
-                                        <div class="story-avatar">🎓</div>
+                                        <img src="assets/avatar_sarah.jpg" alt="Sarah K." class="story-avatar-img" style="border:2px solid var(--green);">
                                         <div class="story-meta">
                                             <strong>Sarah K.</strong>
                                             <span>Graduate Researcher</span>
@@ -2607,7 +2842,7 @@
                                 <div class="story-card">
                                     <div class="story-quote">"We received an alleged audio leak during an investigation. Veritas's acoustic harmonic verification confirmed absence of human breath pauses within 30 seconds."</div>
                                     <div class="story-author">
-                                        <div class="story-avatar">🎙️</div>
+                                        <img src="assets/avatar_arun.jpg" alt="Arun M." class="story-avatar-img" style="border:2px solid var(--cyan);">
                                         <div class="story-meta">
                                             <strong>Arun M.</strong>
                                             <span>Investigative Reporter</span>
@@ -2617,7 +2852,7 @@
                                 <div class="story-card">
                                     <div class="story-quote">"The Humanizer Studio is a lifesaver. It takes stiff, robotic draft outlines and rewrites them into vibrant, organic prose that truly sounds like me."</div>
                                     <div class="story-author">
-                                        <div class="story-avatar">✍️</div>
+                                        <img src="assets/avatar_elena.jpg" alt="Elena R." class="story-avatar-img" style="border:2px solid var(--rose);">
                                         <div class="story-meta">
                                             <strong>Elena R.</strong>
                                             <span>Creative Essayist</span>
@@ -2653,32 +2888,32 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><strong>test.wav</strong></td>
+                                        <td><img src="assets/sample_audio_spec.jpg" alt="test.wav" class="table-thumb"><strong>test.wav</strong></td>
                                         <td><span class="tag-pill green">Audio</span></td>
                                         <td><b style="color:var(--green)">47%</b></td>
-                                        <td>Human-like speech rhythms detected</td>
-                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner')">Review</button></td>
+                                        <td>Human-like speech rhythms & breath pauses</td>
+                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner'); loadSampleMedia('audio_ai');">Review</button></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>test.png</strong></td>
+                                        <td><img src="assets/sample_ai_face.jpg" alt="test.png" class="table-thumb"><strong>test.png</strong></td>
                                         <td><span class="tag-pill cyan">Photo</span></td>
                                         <td><b style="color:var(--red)">94%</b></td>
-                                        <td>High probability synthetic diffusion artifacts</td>
-                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner')">Review</button></td>
+                                        <td>High probability synthetic diffusion grid</td>
+                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner'); loadSampleMedia('image_ai');">Review</button></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>test.mp4</strong></td>
+                                        <td><img src="assets/sample_video_deepfake.jpg" alt="test.mp4" class="table-thumb"><strong>test.mp4</strong></td>
                                         <td><span class="tag-pill purple">Video</span></td>
                                         <td><b style="color:var(--yellow)">53%</b></td>
-                                        <td>Mixed motion cadence; low warping detected</td>
-                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner')">Review</button></td>
+                                        <td>Facial boundary morph; temporal optical jitter</td>
+                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner'); loadSampleMedia('video_ai');">Review</button></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>TEST_d6d0e66498504115ab89f063291...</strong></td>
+                                        <td><img src="assets/sample_real_face.jpg" alt="dslr.jpg" class="table-thumb"><strong>canon_dslr_capture.jpg</strong></td>
                                         <td><span class="tag-pill cyan">Photo</span></td>
-                                        <td><b style="color:var(--red)">86%</b></td>
-                                        <td>Likely AI-generated facial textures</td>
-                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner')">Review</button></td>
+                                        <td><b style="color:var(--green)">4%</b></td>
+                                        <td>Authentic Canon sensor PRNU fingerprint</td>
+                                        <td><button class="btn btn-ghost" style="padding:4px 8px;" onclick="switchView('scanner'); loadSampleMedia('image_real');">Review</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -2900,16 +3135,58 @@
                                 <input type="file" id="fileUploadInput" accept="image/*,video/*,audio/*" style="display:none;" onchange="handleFileSelect(event)">
                             </div>
 
-                            <!-- One-Click Preset Samples -->
-                            <div style="margin-top:16px;">
-                                <div style="font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">
-                                    Or Test Built-In Presets:
+                            <!-- Real-World Forensic Asset Grid -->
+                            <div style="margin-top:20px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                                    <div style="font-size:11px; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.5px;">
+                                        ⚡ Select Real-World Target Asset to Scan:
+                                    </div>
+                                    <span style="font-size:10px; color:var(--cyan);">Click any card to inspect</span>
                                 </div>
-                                <div class="quick-samples">
-                                    <button class="sample-btn" onclick="loadSampleMedia('image_ai')">🖼️ AI Portrait (Photo)</button>
-                                    <button class="sample-btn" onclick="loadSampleMedia('image_real')">📸 Authentic Camera (Photo)</button>
-                                    <button class="sample-btn" onclick="loadSampleMedia('audio_ai')">🎙️ Cloned Voice (Audio)</button>
-                                    <button class="sample-btn" onclick="loadSampleMedia('video_ai')">🎬 Face Swap (Video)</button>
+                                <div class="realtime-asset-grid">
+                                    <div class="realtime-asset-card" onclick="loadSampleMedia('image_ai')">
+                                        <div class="asset-card-thumb-wrap">
+                                            <img src="assets/sample_ai_face.jpg" alt="AI Portrait" class="asset-card-thumb">
+                                            <span class="asset-badge red">94% AI</span>
+                                        </div>
+                                        <div class="asset-card-meta">
+                                            <strong>Synthetic Portrait</strong>
+                                            <span>Latent Diffusion Grid</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="realtime-asset-card" onclick="loadSampleMedia('image_real')">
+                                        <div class="asset-card-thumb-wrap">
+                                            <img src="assets/sample_real_face.jpg" alt="DSLR Portrait" class="asset-card-thumb">
+                                            <span class="asset-badge green">4% AI</span>
+                                        </div>
+                                        <div class="asset-card-meta">
+                                            <strong>Authentic DSLR</strong>
+                                            <span>Canon Sensor PRNU</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="realtime-asset-card" onclick="loadSampleMedia('audio_ai')">
+                                        <div class="asset-card-thumb-wrap">
+                                            <img src="assets/sample_audio_spec.jpg" alt="Audio Spectrogram" class="asset-card-thumb">
+                                            <span class="asset-badge red">87% AI</span>
+                                        </div>
+                                        <div class="asset-card-meta">
+                                            <strong>Cloned Voice</strong>
+                                            <span>Neural TTS Vocoder</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="realtime-asset-card" onclick="loadSampleMedia('video_ai')">
+                                        <div class="asset-card-thumb-wrap">
+                                            <img src="assets/sample_video_deepfake.jpg" alt="Video Deepfake" class="asset-card-thumb">
+                                            <span class="asset-badge red">91% AI</span>
+                                        </div>
+                                        <div class="asset-card-meta">
+                                            <strong>Face Swap Video</strong>
+                                            <span>Temporal Morphs</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3878,7 +4155,8 @@
                 time: "8:30 AM",
                 authorname: "M. Vinith Kumar",
                 designation: "Chief AI Integrity Officer",
-                contact: "vinith@veritasnews.com"
+                contact: "vinith@veritasnews.com",
+                image: "assets/report_education.jpg"
             },
             {
                 reportno: 102,
@@ -3888,7 +4166,8 @@
                 time: "9:15 AM",
                 authorname: "S. Kavin Kumar",
                 designation: "Senior Verification Analyst",
-                contact: "kavin@veritasnews.com"
+                contact: "kavin@veritasnews.com",
+                image: "assets/report_nep.jpg"
             },
             {
                 reportno: 103,
@@ -3898,7 +4177,8 @@
                 time: "10:45 AM",
                 authorname: "R. Dinesh",
                 designation: "Media Forensics Analyst",
-                contact: "dinesh@veritasnews.com"
+                contact: "dinesh@veritasnews.com",
+                image: "assets/report_sports.jpg"
             },
             {
                 reportno: 104,
@@ -3908,7 +4188,8 @@
                 time: "11:20 AM",
                 authorname: "A. Sneha",
                 designation: "Digital Content Integrity Critic",
-                contact: "sneha@veritasnews.com"
+                contact: "sneha@veritasnews.com",
+                image: "assets/report_movie.jpg"
             },
             {
                 reportno: 105,
@@ -3918,7 +4199,8 @@
                 time: "12:00 PM",
                 authorname: "P. Mani",
                 designation: "Automated Dispatch Verification Auditor",
-                contact: "mani@veritasnews.com"
+                contact: "mani@veritasnews.com",
+                image: "assets/report_weather.jpg"
             }
         ];
 
@@ -4002,6 +4284,7 @@
                 title: "Photo Signal Profile · Pixel & Noise Residuals",
                 badge: "PHOTO DETECTION",
                 html: `
+                    <img src="assets/sample_ai_face.jpg" alt="Pixel Noise Residual Analysis" class="modal-feature-img">
                     <div style="background:var(--panel-2); padding:16px; border-radius:10px; margin-bottom:14px; border-left:4px solid var(--cyan)">
                         <strong style="color:var(--cyan)">Pixel-Pattern and Noise Residual Analysis</strong>
                         <p style="margin-top:6px;">AI generative diffusion models leave subtle high-frequency spatial grid artifacts. By extracting PRNU (Photo Response Non-Uniformity) sensor patterns and localized compression variances, we isolate synthetic texture synthesis.</p>
@@ -4017,6 +4300,7 @@
                 title: "Video Signal Profile · Frame Continuity & Blinking Cadence",
                 badge: "VIDEO DETECTION",
                 html: `
+                    <img src="assets/sample_video_deepfake.jpg" alt="Frame Continuity Analysis" class="modal-feature-img">
                     <div style="background:var(--panel-2); padding:16px; border-radius:10px; margin-bottom:14px; border-left:4px solid var(--purple)">
                         <strong style="color:var(--purple)">Frame-by-Frame Motion Analysis</strong>
                         <p style="margin-top:6px;">Deepfake video generation struggles to replicate natural biological dynamics across consecutive temporal frames. We track micro-expressions, eye-blink frequencies, and jaw boundary morphs.</p>
@@ -4032,6 +4316,7 @@
                 title: "Audio Signal Profile · Voice Synthesis & Spectral Pitch",
                 badge: "AUDIO DETECTION",
                 html: `
+                    <img src="assets/sample_audio_spec.jpg" alt="Acoustic Spectral Analysis" class="modal-feature-img">
                     <div style="background:var(--panel-2); padding:16px; border-radius:10px; margin-bottom:14px; border-left:4px solid var(--green)">
                         <strong style="color:var(--green)">Pitch, Rhythm, and Spectral Harmonic Analysis</strong>
                         <p style="margin-top:6px;">Synthetic text-to-speech (TTS) and cloned voices sound convincing to the ear, but reveal missing natural vocal fry, flat breathing rhythm cadences, and harmonic phase discontinuities in spectrogram transforms.</p>
@@ -4047,6 +4332,7 @@
                 title: "Veritas AI Core Engine · Architecture",
                 badge: "CORE FORENSICS",
                 html: `
+                    <img src="assets/forensic_hero.jpg" alt="Core Engine Architecture" class="modal-feature-img">
                     <div style="background:var(--panel-2); padding:16px; border-radius:10px; margin-bottom:14px; border-left:4px solid var(--blue)">
                         <strong style="color:var(--blue)">Veritas Multi-Modal Decision Fusion</strong>
                         <p style="margin-top:6px;">Veritas fuses visual, acoustic, and linguistic signals into a verifiable authenticity score with cryptographic proof logging.</p>
@@ -4115,19 +4401,51 @@
         }
 
         function loadSampleMedia(sampleKey) {
-            let dummyType, name;
-            if (sampleKey === 'image_ai' || sampleKey === 'image_real') {
-                dummyType = 'image/png';
-                name = sampleKey === 'image_ai' ? 'ai_synthetic_portrait.png' : 'canon_dslr_capture.jpg';
-                createSyntheticImage(sampleKey === 'image_ai');
+            const previewPlaceholder = document.getElementById('previewPlaceholder');
+            const previewImg = document.getElementById('previewImage');
+            const previewVid = document.getElementById('previewVideo');
+            const previewAudWrap = document.getElementById('audioVisualizerWrap');
+            const previewAud = document.getElementById('previewAudio');
+            const filterBar = document.getElementById('imageFilterBar');
+
+            previewPlaceholder.style.display = 'none';
+            previewImg.style.display = 'none';
+            previewVid.style.display = 'none';
+            previewAudWrap.style.display = 'none';
+            filterBar.style.display = 'none';
+
+            if (sampleKey === 'image_ai') {
+                currentLoadedFileType = 'Photo';
+                previewImg.src = 'assets/sample_ai_face.jpg';
+                previewImg.style.display = 'block';
+                filterBar.style.display = 'flex';
+                document.getElementById('kpiContentType').textContent = 'Photo (Diffusion AI)';
+                showToast("📸 Loaded Synthetic Diffusion Face specimen", "🤖", "warm");
+                setTimeout(() => runMediaAnalysis(94), 300);
+            } else if (sampleKey === 'image_real') {
+                currentLoadedFileType = 'Photo';
+                previewImg.src = 'assets/sample_real_face.jpg';
+                previewImg.style.display = 'block';
+                filterBar.style.display = 'flex';
+                document.getElementById('kpiContentType').textContent = 'Photo (Authentic DSLR)';
+                showToast("📸 Loaded Authentic DSLR Camera specimen", "🌿", "success");
+                setTimeout(() => runMediaAnalysis(4), 300);
             } else if (sampleKey === 'audio_ai') {
-                dummyType = 'audio/wav';
-                name = 'cloned_voice_deepfake.wav';
-                createSyntheticAudioDemo();
+                currentLoadedFileType = 'Audio';
+                previewAudWrap.style.display = 'block';
+                previewImg.src = 'assets/sample_audio_spec.jpg';
+                previewImg.style.display = 'block';
+                document.getElementById('kpiContentType').textContent = 'Audio (Voice Clone)';
+                renderAnimatedEqualizer();
+                showToast("🎙️ Loaded Cloned Voice acoustic spectrum specimen", "🎙️", "warm");
+                setTimeout(() => runMediaAnalysis(87), 300);
             } else if (sampleKey === 'video_ai') {
-                dummyType = 'video/mp4';
-                name = 'deepfake_face_swap.mp4';
-                createSyntheticVideoDemo();
+                currentLoadedFileType = 'Video';
+                previewImg.src = 'assets/sample_video_deepfake.jpg';
+                previewImg.style.display = 'block';
+                document.getElementById('kpiContentType').textContent = 'Video (Deepfake Frame)';
+                showToast("🎬 Loaded Face Swap Video temporal frame specimen", "🎬", "warm");
+                setTimeout(() => runMediaAnalysis(91), 300);
             }
         }
 
@@ -4611,10 +4929,10 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><strong>${r.reportno}</strong></td>
-                    <td><b>${r.title}</b></td>
+                    <td><img src="${r.image || 'assets/report_education.jpg'}" alt="${r.title}" class="xml-table-thumb"><b>${r.title}</b></td>
                     <td><span class="tag-pill cyan">${r.category}</span></td>
                     <td>${r.score}</td>
-                    <td><span style="color:#d32f2f; font-weight:bold;">${r.time}</span></td>
+                    <td><span style="color:var(--rose); font-weight:bold;">${r.time}</span></td>
                     <td><strong>${r.authorname}</strong> (${r.designation})</td>
                 `;
                 xsltBody.appendChild(tr);
@@ -4627,7 +4945,8 @@
                 const card = document.createElement('div');
                 card.className = 'xml-report-card';
                 card.innerHTML = `
-                    <div class="xml-reportno">${r.reportno}</div>
+                    <img src="${r.image || 'assets/report_education.jpg'}" alt="${r.title}" class="xml-card-img">
+                    <div class="xml-reportno">#${r.reportno}</div>
                     <div class="xml-title">${r.title}</div>
                     <div class="xml-category">${r.category}</div>
                     <div class="xml-score">${r.score}</div>
